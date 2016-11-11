@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Pane minHeight="527.0" minWidth="830.0" prefHeight="620.0" prefWidth="920.0" stylesheets="@style.css">
+         <children>
+            <TabPane layoutY="139.0" prefHeight="307.0" prefWidth="920.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Table list">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="414.0" prefWidth="830.0">
+                           <children>
+                              <ListView layoutX="14.0" layoutY="36.0" prefHeight="228.0" prefWidth="294.0" />
+                              <Button layoutX="810.0" layoutY="230.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Import data" />
+                              <Label layoutX="14.0" layoutY="14.0" text="Choose table to migrate" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="SQL Query">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Button layoutX="810.0" layoutY="230.0" mnemonicParsing="false" text="Import data" />
+                              <TextArea layoutX="14.0" layoutY="36.0" prefHeight="180.0" prefWidth="521.0" />
+                              <Label layoutX="14.0" layoutY="14.0" text="Type SQL Query to execute. Result of this query will be used as table resource" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="SQL Query with relations">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Button layoutX="810.0" layoutY="230.0" mnemonicParsing="false" text="Import data" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+            <ChoiceBox fx:id="databaseDriver" layoutX="14.0" layoutY="34.0" prefWidth="110.0">
+               <effect>
+                  <Blend />
+               </effect></ChoiceBox>
+            <Label layoutX="14.0" layoutY="12.0" text="SQL database">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label layoutX="14.0" layoutY="73.0" text="Redis database">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <TextField layoutX="13.0" layoutY="96.0" prefHeight="25.0" prefWidth="130.0" promptText="IP/hostname">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </TextField>
+            <TextField layoutX="149.0" layoutY="95.0" prefHeight="25.0" prefWidth="48.0" promptText="port">
+               <font>
+                  <Font size="12.0" />
+               </font></TextField>
+            <TextField layoutX="130.0" layoutY="35.0" prefHeight="25.0" prefWidth="124.0" promptText="IP/hostname">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </TextField>
+            <TextField layoutX="259.0" layoutY="35.0" prefHeight="25.0" prefWidth="48.0" promptText="port">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </TextField>
+            <TextField layoutX="312.0" layoutY="35.0" prefHeight="25.0" prefWidth="145.0" promptText="dbname">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </TextField>
+            <TextField layoutX="613.0" layoutY="34.0" prefHeight="25.0" prefWidth="145.0" promptText="user">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </TextField>
+            <PasswordField layoutX="764.0" layoutY="34.0" prefHeight="25.0" prefWidth="145.0" promptText="password">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </PasswordField>
+            <TextField layoutX="462.0" layoutY="34.0" prefHeight="25.0" prefWidth="145.0" promptText="schema (optional)">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </TextField>
+            <Button fx:id="connect" layoutX="806.0" layoutY="109.0" mnemonicParsing="false" onAction="#connect" prefHeight="25.0" prefWidth="100.0" text="Connect" />
+            <TextArea fx:id="log" layoutX="14.0" layoutY="458.0" prefHeight="148.0" prefWidth="897.0">
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </TextArea>
+         </children>
+      </Pane>
+   </children>
+</GridPane>
