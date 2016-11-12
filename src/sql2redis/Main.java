@@ -1,4 +1,4 @@
-package sample;
+package sql2redis;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("SQL2Redis - import data from SQL to Redis");
-        primaryStage.setScene(new Scene(root, 920, 620));
+        primaryStage.setScene(new Scene(root, 749, 566));
         primaryStage.setResizable(false);
         primaryStage.show();
     }
