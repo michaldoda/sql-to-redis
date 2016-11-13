@@ -4,3 +4,7 @@
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
+
+.list-view {
+    -fx-font-size: 11px;
+}

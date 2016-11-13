@@ -10,9 +10,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("sql2redis.fxml"));
         primaryStage.setTitle("SQL2Redis - import data from SQL to Redis");
-        primaryStage.setScene(new Scene(root, 749, 566));
+        primaryStage.setScene(new Scene(root, 1024, 664));
         primaryStage.setResizable(false);
         primaryStage.show();
     }
