@@ -27,12 +27,12 @@
                <font>
                   <Font size="11.0" />
                </font></Button>
-            <TextArea fx:id="log" layoutX="8.0" layoutY="509.0" prefHeight="148.0" prefWidth="1007.0">
+            <TextArea fx:id="log" layoutX="8.0" layoutY="526.0" prefHeight="131.0" prefWidth="473.0">
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
                </cursor>
                <font>
-                  <Font size="10.0" />
+                  <Font size="12.0" />
                </font>
             </TextArea>
             <TextField fx:id="sqlConnectionString" layoutX="25.0" layoutY="28.0" prefHeight="22.0" prefWidth="308.0" promptText="jdbc:postgresql://hostname:port/dbname" text="jdbc:postgresql://localhost:5432/influentico">
@@ -72,7 +72,7 @@
                   <Font size="11.0" />
                </font></Label>
             <ChoiceBox fx:id="redisSuffix" layoutX="653.0" layoutY="130.0" prefHeight="25.0" prefWidth="169.0" />
-            <Button fx:id="importFromTable" layoutX="913.0" layoutY="471.0" mnemonicParsing="false" onAction="#tableToRedisImport" text="Import data" />
+            <Button fx:id="importSqlToRedis" layoutX="913.0" layoutY="471.0" mnemonicParsing="false" onAction="#importSqlToRedis" text="Import data" />
             <ListView fx:id="tableList" layoutX="15.0" layoutY="120.0" onMouseClicked="#selectTableList" prefHeight="379.0" prefWidth="261.0" />
             <Label layoutX="8.0" layoutY="-3.0" opacity="0.4" prefHeight="11.0" prefWidth="95.0" text="sql-to-redis">
                <font>
@@ -105,17 +105,17 @@
                   <Font size="9.0" />
                </font>
             </Label>
-            <Label layoutX="17.0" layoutY="100.0" text="Select table:">
+            <Label layoutX="17.0" layoutY="100.0" text="Select table or view:">
                <font>
                   <Font size="11.0" />
                </font>
             </Label>
-            <Label layoutX="536.0" layoutY="170.0" text="Redis entry value, type JSON schema (you can use variables from token list):">
+            <Label layoutX="536.0" layoutY="161.0" prefHeight="52.0" prefWidth="473.0" text="Redis entry value. It is a JSON schema template. You can use &quot;Tokens and columns&quot; values with &quot;$&quot; prefix. For example:  { field_name: $column_name }" wrapText="true">
                <font>
                   <Font size="11.0" />
                </font>
             </Label>
-            <TextArea layoutX="534.0" layoutY="194.0" prefHeight="246.0" prefWidth="473.0" promptText="{  id: $colName, items: [&quot;$arrayItem1&quot;, &quot;$arrayItem2&quot;], created_at: $CURRENT_TIMESTAMP}">
+            <TextArea fx:id="jsonSchema" layoutX="534.0" layoutY="203.0" prefHeight="262.0" prefWidth="473.0" promptText="{  id: $colName, items: [&quot;$arrayItem1&quot;, &quot;$arrayItem2&quot;], created_at: $CURRENT_TIMESTAMP}">
                <font>
                   <Font size="12.0" />
                </font>
@@ -132,12 +132,16 @@
                   <Font size="11.0" />
                </font>
             </CheckBox>
-            <Label layoutX="295.0" layoutY="101.0" text="Read-only tokens and columns:">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </Label>
-            <ListView fx:id="tokenList" disable="true" layoutX="289.0" layoutY="121.0" prefHeight="379.0" prefWidth="222.0" />
+            <ListView fx:id="tokenList" disable="true" layoutX="289.0" layoutY="121.0" prefHeight="379.0" prefWidth="222.0" visible="false" />
+            <Label layoutX="7.0" layoutY="511.0" text="Log" />
+            <Label layoutX="542.0" layoutY="511.0" text="Background threads:" />
+            <TableView fx:id="backgroundThreadsTable" layoutX="543.0" layoutY="527.0" prefHeight="131.0" prefWidth="473.0">
+              <columns>
+                <TableColumn prefWidth="95.0" text="Name" />
+                <TableColumn prefWidth="260.0" text="Description" />
+                  <TableColumn prefWidth="117.0" text="State" />
+              </columns>
+            </TableView>
          </children>
       </Pane>
    </children>

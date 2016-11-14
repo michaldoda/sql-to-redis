@@ -1,9 +1,12 @@
 package sql2redis;
 
 import javafx.collections.FXCollections;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import redis.clients.jedis.Jedis;
+import sql2redis.tasks.ImportTask;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -28,6 +31,12 @@ public class Controller {
 
     @FXML
     public ListView tokenList;
+
+    @FXML
+    public TextArea jsonSchema;
+
+    @FXML
+    public TableView backgroundThreadsTable;
 
     @FXML
     private TextArea log;
@@ -76,10 +85,13 @@ public class Controller {
         this.selectedTable = tableName;
         this.redisPrefix.setText(tableName);
         this.getTableInfo(tableName);
-        this.redisSuffix.setItems(FXCollections.observableArrayList(this.selectedTableColumns));
+        this.tokenList.setVisible(true);
         this.setTokenlist();
+        this.prepareJsonSchema();
+        this.selectedTableColumns.add("Auto-increment id");
+        this.redisSuffix.setItems(FXCollections.observableArrayList(this.selectedTableColumns));
         this.redisSuffix.setValue("Auto-increment id");
-        this.log("info", "Table: "+this.selectedTable+ " contains: " + this.selectedTableFetchSize + " rows");
+        this.log("info", "Selected table: "+this.selectedTable+ " contains: " + this.selectedTableFetchSize + " rows");
     }
 
     private void log(String type, String text) {
@@ -105,7 +117,6 @@ public class Controller {
         } catch (SQLException e) {
             this.log("error", e.getMessage());
         }
-        this.selectedTableColumns.add("Auto-increment id");
     }
 
     private void sqlConnect() {
@@ -132,22 +143,44 @@ public class Controller {
         }
     }
 
-    public void tableToRedisImport() {
-        try {
-            String sql = "SELECT * FROM $tableName".replace("$tableName", this.selectedTable);
-            Statement stmt = this.connection.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            double counter = 1;
-            while (rs.next()) {
-                counter++;
-                this.jedis.set(""+counter+"", "pattern");
+    public void importSqlToRedis() {
+        String sqlUrl = this.sqlConnectionString.getText();
+        String sqlUser = this.sqlUsername.getText();
+        String sqlPassword = this.sqlPassword.getText();
+        String redisHost = this.redisHostname.getText();
+        int redisPort = Integer.parseInt(this.redisPort.getText());
+        String tableToImport = this.selectedTable;
+        String jsonSchema = this.jsonSchema.getText();
+        ImportTask importTask = new ImportTask(sqlUrl, sqlUser, sqlPassword, redisHost, redisPort, tableToImport, jsonSchema);
+        Thread th = new Thread(importTask);
+        th.setDaemon(true);
+        th.start();
+
+
+        importTask.setOnSucceeded(new EventHandler() {
+            @Override
+            public void handle(Event t) {
+                if (importTask.isDone()){
+                    System.out.println("ok");
+                } else {
+                    System.out.println("nope");
+                }
             }
-        } catch (Exception e) {
-            this.log("error", "Import not completed, "+e.getMessage());
-        }
+        });
     }
 
     private void setTokenlist() {
         this.tokenList.setItems(FXCollections.observableArrayList(this.selectedTableColumns));
+    }
+
+    private void prepareJsonSchema() {
+        StringBuilder jsonSchemaText = new StringBuilder();
+        jsonSchemaText.append("{\n");
+        for (int i = 0; i < this.selectedTableColumns.size(); i++) {
+            String tmpName = this.selectedTableColumns.get(i);
+            jsonSchemaText.append("    \""+tmpName+"\":" + "$"+tmpName+"\"\n");
+        }
+        jsonSchemaText.append("}");
+        this.jsonSchema.setText(jsonSchemaText.toString());
     }
 }
