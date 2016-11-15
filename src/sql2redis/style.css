@@ -6,5 +6,180 @@
 }
 
 .list-view {
-    -fx-font-size: 11px;
+    -fx-font-size: 13px;
+}
+
+
+.text-area .content{
+    -fx-background-color: #45494A;
+}
+
+#jsonSchema {
+    -fx-text-fill: #EBEBEB;
+    -fx-font-weight: bold;
+    -fx-background-color: #45494A;
+}
+
+.text-field .content {
+    -fx-prompt-text-fill: #e2e2e2;
+}
+
+#log {
+    -fx-text-fill: #a2a2a2;
+}
+#log .content {
+    -fx-background-color: #2B2B2B;
+}
+
+#sqlConnectionString {
+    -fx-text-fill: #EBEBEB;
+    -fx-font-weight: bold;
+}
+
+#sqlPassword {
+    -fx-text-fill: #EBEBEB;
+    -fx-font-weight: bold;
+}
+
+#sqlUsername {
+    -fx-text-fill: #EBEBEB;
+    -fx-font-weight: bold;
+}
+
+#redisHostname {
+    -fx-text-fill: #EBEBEB;
+    -fx-font-weight: bold;
+}
+
+#redisPort {
+    -fx-text-fill: #EBEBEB;
+    -fx-font-weight: bold;
+}
+
+#redisKeyName {
+    -fx-text-fill: #EBEBEB;
+    -fx-font-weight: bold;
+}
+
+
+.table-view .filler {
+    -fx-background-color: #7733ee;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #a2a2a2;
+    -fx-background-color: #45494A;
+    -fx-font-weight: bold;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: #2F65CA;
+    -fx-text-fill: white;
+}
+
+.list-cell {
+    -fx-text-fill: #aaaaaa;
+    -fx-background-color: #414547;
+}
+
+.list-cell:even {
+    -fx-text-fill: #aaaaaa;
+    -fx-background-color: #3C3F41;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #2F65CA;
+    -fx-text-fill: white;
+}
+
+.hide-thumb .scroll-bar:vertical .thumb {
+    -fx-background-color: transparent;
+}
+
+.button {
+    -fx-text-fill: #BBBBBB;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-color: #4A4F51;
+    -fx-border-color: #2F65CA;
+    -fx-border-radius: 3;
+
+}
+
+
+.button:hover {
+    -fx-cursor: hand;
+}
+
+.choice-box {
+    -fx-focus-color: transparent;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-color: #4A4F51;
+    -fx-border-color: #595A5A;
+}
+
+.choice-box > * {
+    -fx-text-fill: #BBBBBB;
+}
+
+
+.scroll-bar{
+    -fx-background-color: rgb(96,96,96);
+}
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color:transparent;
+}
+.scroll-bar:vertical .track-background,
+.scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #545657;
+    -fx-background-insets: 4 0 4 0;
+}
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #545657;
+    -fx-background-insets: 0 4 0 4;
+}
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #545657;
+}
+.scroll-bar:horizontal .thumb:pressed,
+.scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: #545657;
+}
+.scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
+    -fx-background-color:transparent;
+    -fx-padding: 1;
+}
+.scroll-bar:horizontal .increment-button, .scroll-bar:horizontal .decrement-button {
+    -fx-background-color:transparent;
+    -fx-padding: 1;
+}
+.scroll-bar:horizontal .increment-arrow {
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+    -fx-background-color: #545657;
+
+}
+.scroll-bar:vertical .increment-arrow {
+    -fx-background-color: #545657;
+    -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
+
+}
+.scroll-bar:horizontal .decrement-arrow {
+    -fx-background-color: #545657;
+
+}
+.scroll-bar:vertical .decrement-arrow {
+    -fx-background-color: #545657;
+
+}
+.scroll-bar:vertical:focused,
+.scroll-bar:horizontal:focused {
+    -fx-background-color: transparent,rgb(96,96,96),rgb(96,96,96);
 }

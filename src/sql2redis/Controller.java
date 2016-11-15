@@ -18,7 +18,7 @@ public class Controller {
     public PasswordField sqlPassword;
 
     @FXML
-    public TextField sqlConnectionString, sqlUsername, redisHostname, redisPort, redisPrefix;
+    public TextField sqlConnectionString, sqlUsername, redisHostname, redisPort, redisKeyName;
 
     @FXML
     public ListView tableList;
@@ -27,7 +27,7 @@ public class Controller {
     public ChoiceBox redisSuffix;
 
     @FXML
-    public Button importFromTable, connect;
+    public Button importSqlToRedis, connect;
 
     @FXML
     public ListView tokenList;
@@ -83,7 +83,7 @@ public class Controller {
         }
         String tableName = tableList.getSelectionModel().getSelectedItem().toString();
         this.selectedTable = tableName;
-        this.redisPrefix.setText(tableName);
+        this.redisKeyName.setText(tableName);
         this.getTableInfo(tableName);
         this.tokenList.setVisible(true);
         this.setTokenlist();
@@ -91,6 +91,7 @@ public class Controller {
         this.selectedTableColumns.add("Auto-increment id");
         this.redisSuffix.setItems(FXCollections.observableArrayList(this.selectedTableColumns));
         this.redisSuffix.setValue("Auto-increment id");
+        this.importSqlToRedis.setDisable(false);
         this.log("info", "Selected table: "+this.selectedTable+ " contains: " + this.selectedTableFetchSize + " rows");
     }
 
@@ -178,7 +179,7 @@ public class Controller {
         jsonSchemaText.append("{\n");
         for (int i = 0; i < this.selectedTableColumns.size(); i++) {
             String tmpName = this.selectedTableColumns.get(i);
-            jsonSchemaText.append("    \""+tmpName+"\":" + "$"+tmpName+"\"\n");
+            jsonSchemaText.append("    \""+tmpName+"\": " + "$"+tmpName+"\"\n");
         }
         jsonSchemaText.append("}");
         this.jsonSchema.setText(jsonSchemaText.toString());
