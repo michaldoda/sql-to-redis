@@ -61,6 +61,8 @@ public class ImportTaskModel {
             return "Waiting";
         } else if(status.equals("TIMED_WAITING")) {
             return "Waiting";
+        } else if (status.equals("user_stop_action")) {
+            return "Canceled";
         } else {
             return "";
         }

@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+
 <GridPane alignment="center" hgap="10" style="-fx-background-color: #3C3F41;" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sql2redis.Controller">
    <columnConstraints>
       <ColumnConstraints />
@@ -114,15 +118,15 @@
             <Label layoutX="536.0" layoutY="574.0" prefHeight="15.0" prefWidth="201.0" text="Background tasks:" textFill="#a2a2a2" />
             <TableView fx:id="backgroundThreadsTable" editable="true" layoutX="535.0" layoutY="595.0" prefHeight="131.0" prefWidth="481.0" style="-fx-background-color: #2B2B2B;">
               <columns>
-                 <TableColumn text="Name" prefWidth="96.0" resizable="false" >
+                 <TableColumn editable="false" prefWidth="113.0" resizable="false" sortable="false" text="Name">
                     <cellValueFactory><PropertyValueFactory property="name" />
                     </cellValueFactory>
                  </TableColumn>
-                 <TableColumn text="Description" prefWidth="96.0" resizable="false" >
+                 <TableColumn editable="false" prefWidth="240.0" resizable="false" sortable="false" text="Description">
                     <cellValueFactory><PropertyValueFactory property="description" />
                     </cellValueFactory>
                  </TableColumn>
-                 <TableColumn text="Status" prefWidth="96.0" resizable="false" >
+                 <TableColumn editable="false" prefWidth="127.0" resizable="false" sortType="DESCENDING" sortable="false" text="Status">
                     <cellValueFactory><PropertyValueFactory property="status" />
                     </cellValueFactory>
                  </TableColumn>
