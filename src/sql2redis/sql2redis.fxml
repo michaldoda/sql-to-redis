@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-
+<?import javafx.scene.text.*?>
 <GridPane alignment="center" hgap="10" style="-fx-background-color: #3C3F41;" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sql2redis.Controller">
    <columnConstraints>
       <ColumnConstraints />
@@ -116,23 +109,32 @@
                   <Font size="11.0" />
                </font>
             </CheckBox>
-            <ListView fx:id="tokenList" layoutX="289.0" layoutY="157.0" prefHeight="379.0" prefWidth="222.0" style="-fx-background-color: #2B2B2B;" />
+            <ListView fx:id="tokenList" layoutX="299.0" layoutY="155.0" prefHeight="379.0" prefWidth="214.0" style="-fx-background-color: #2B2B2B;" />
             <Label layoutX="9.0" layoutY="575.0" text="Log" textFill="#a2a2a2" />
             <Label layoutX="536.0" layoutY="574.0" prefHeight="15.0" prefWidth="201.0" text="Background tasks:" textFill="#a2a2a2" />
             <TableView fx:id="backgroundThreadsTable" editable="true" layoutX="535.0" layoutY="595.0" prefHeight="131.0" prefWidth="481.0" style="-fx-background-color: #2B2B2B;">
               <columns>
-                <TableColumn prefWidth="96.0" resizable="false" text="Name" />
-                <TableColumn prefWidth="288.0" resizable="false" text="Description" />
-                  <TableColumn prefWidth="96.0" resizable="false" text="Status" />
+                 <TableColumn text="Name" prefWidth="96.0" resizable="false" >
+                    <cellValueFactory><PropertyValueFactory property="name" />
+                    </cellValueFactory>
+                 </TableColumn>
+                 <TableColumn text="Description" prefWidth="96.0" resizable="false" >
+                    <cellValueFactory><PropertyValueFactory property="description" />
+                    </cellValueFactory>
+                 </TableColumn>
+                 <TableColumn text="Status" prefWidth="96.0" resizable="false" >
+                    <cellValueFactory><PropertyValueFactory property="status" />
+                    </cellValueFactory>
+                 </TableColumn>
               </columns>
             </TableView>
             <Separator layoutX="-1.0" layoutY="562.0" opacity="0.2" prefHeight="3.0" prefWidth="1024.0" />
-            <Label layoutX="289.0" layoutY="136.0" prefHeight="15.0" prefWidth="222.0" text="[SQL] Columns/tokens (read-only):" textFill="#a2a2a2">
+            <Label layoutX="299.0" layoutY="134.0" prefHeight="15.0" prefWidth="214.0" text="[SQL] Columns/tokens (read-only):" textFill="#a2a2a2">
                <font>
                   <Font size="12.0" />
                </font>
             </Label>
-            <Label layoutX="536.0" layoutY="507.0" prefHeight="45.0" prefWidth="473.0" text="Import data will fetch all rows from selected table and insert each row with JSON schema. All $variables will be replaced on the fly with column values. Remove $ sign if you want static value." textFill="#a2a2a2" wrapText="true">
+            <Label layoutX="536.0" layoutY="507.0" prefHeight="45.0" prefWidth="473.0" text="[INFO] Import data will fetch all rows from selected table and insert each row with JSON schema to Redis. All $variables will be replaced on the fly with column values. Remove $ sign for static value." textFill="#a2a2a2" wrapText="true">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>

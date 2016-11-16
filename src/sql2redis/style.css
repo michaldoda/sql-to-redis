@@ -15,8 +15,9 @@
 }
 
 #jsonSchema {
-    -fx-text-fill: #EBEBEB;
-    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-text-fill: #e7e7e7;
+    -fx-font-weight: bolder;
     -fx-background-color: #45494A;
 }
 
@@ -182,4 +183,8 @@
 .scroll-bar:vertical:focused,
 .scroll-bar:horizontal:focused {
     -fx-background-color: transparent,rgb(96,96,96),rgb(96,96,96);
+}
+
+#tokenList {
+
 }

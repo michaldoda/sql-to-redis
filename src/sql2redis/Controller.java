@@ -1,11 +1,16 @@
 package sql2redis;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
-import javafx.event.Event;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.Duration;
 import redis.clients.jedis.Jedis;
+import sql2redis.models.ImportTaskModel;
 import sql2redis.tasks.ImportTask;
 
 import java.sql.*;
@@ -36,7 +41,7 @@ public class Controller {
     public TextArea jsonSchema;
 
     @FXML
-    public TableView backgroundThreadsTable;
+    public TableView<ImportTaskModel> backgroundThreadsTable;
 
     @FXML
     private TextArea log;
@@ -49,17 +54,38 @@ public class Controller {
 
     private Jedis jedis;
 
+    private boolean isRedisConnected = false;
+
+    private boolean isSqlConnected = false;
+
+    public int importCounter = 0;
+
+    private List<Thread> backgroundThreads = new ArrayList<Thread>();
+
     private List<String> selectedTableColumns = new ArrayList<>();
 
     @FXML
     private void initialize() {
         this.log.setEditable(false);
+        this.tokenList.setMouseTransparent(true);
+        this.tokenList.setFocusTraversable(false);
+
+        Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                getThreadsSize();
+            }
+        }));
+        fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
+        fiveSecondsWonder.play();
     }
 
     public void connect() {
         this.redisConnect();
         this.sqlConnect();
-        this.getTableList();
+        if (this.isSqlConnected && this.isRedisConnected) {
+            this.getTableList();
+        }
     }
 
     private void getTableList() {
@@ -92,7 +118,6 @@ public class Controller {
         this.redisSuffix.setItems(FXCollections.observableArrayList(this.selectedTableColumns));
         this.redisSuffix.setValue("Auto-increment id");
         this.importSqlToRedis.setDisable(false);
-        this.log("info", "Selected table: "+this.selectedTable+ " contains: " + this.selectedTableFetchSize + " rows");
     }
 
     private void log(String type, String text) {
@@ -127,7 +152,8 @@ public class Controller {
             String password = this.sqlPassword.getText();
             this.connection = DriverManager.getConnection(connectionString, username, password);
             this.connect.setText("Reconnect");
-            this.log("info", "connected to SQL Database!");
+            this.isSqlConnected = true;
+            this.log("info", "Successfully connected to sql database");
         } catch (Exception e) {
             this.log("error", e.getMessage());
         }
@@ -138,9 +164,32 @@ public class Controller {
             String hostname = this.redisHostname.getText();
             int port = Integer.parseInt(this.redisPort.getText());
             this.jedis = new Jedis(hostname, port);
-            this.log("info", "connected to Reds!");
+            this.jedis.connect();
+            if (this.jedis.isConnected()) {
+                this.isRedisConnected = true;
+                this.log("info", "Successfully connected to redis");
+            } else {
+                this.log("error", "The connection to the redis has failed");
+            }
         } catch (Exception e) {
             this.log("error", e.getMessage());
+        }
+    }
+
+    final public boolean test() {
+        return true;
+    }
+
+    final public void getThreadsSize() {
+        for (int i = 0, j = this.backgroundThreads.size(); i < j; i++) {
+            Thread tmpThread = this.backgroundThreads.get(i);
+            this.backgroundThreadsTable.getItems().forEach(item -> {
+                if (item.getName().equals(tmpThread.getName())) {
+                    item.setStatus(tmpThread.getState().toString());
+                }
+            });
+            ObservableList t = this.backgroundThreadsTable.getItems();
+            FXCollections.copy(this.backgroundThreadsTable.getItems(), t);
         }
     }
 
@@ -154,20 +203,28 @@ public class Controller {
         String jsonSchema = this.jsonSchema.getText();
         ImportTask importTask = new ImportTask(sqlUrl, sqlUser, sqlPassword, redisHost, redisPort, tableToImport, jsonSchema);
         Thread th = new Thread(importTask);
+        th.setName("Task" + this.importCounter);
+        this.importCounter++;
+        this.backgroundThreads.add(th);
         th.setDaemon(true);
         th.start();
+        this.log("info", "Started");
 
-
-        importTask.setOnSucceeded(new EventHandler() {
-            @Override
-            public void handle(Event t) {
-                if (importTask.isDone()){
-                    System.out.println("ok");
-                } else {
-                    System.out.println("nope");
-                }
-            }
-        });
+        ImportTaskModel newTask = new ImportTaskModel(th.getName(), tableToImport, ImportTaskModel.translateState(th.getState().toString()));
+        final ObservableList<ImportTaskModel> row = FXCollections.observableArrayList(newTask);
+        this.backgroundThreadsTable.getItems().addAll(row);
+//
+//        importTask.setOnSucceeded(new EventHandler() {
+//            @Override
+//            public void handle(Event t) {
+//                if (importTask.isDone()){
+//                    test();
+//                    System.out.println("ok");
+//                } else {
+//                    System.out.println("nope");
+//                }
+//            }
+//        });
     }
 
     private void setTokenlist() {
@@ -179,7 +236,7 @@ public class Controller {
         jsonSchemaText.append("{\n");
         for (int i = 0; i < this.selectedTableColumns.size(); i++) {
             String tmpName = this.selectedTableColumns.get(i);
-            jsonSchemaText.append("    \""+tmpName+"\": " + "$"+tmpName+"\"\n");
+            jsonSchemaText.append("    \""+tmpName+"\": " + "$"+tmpName+"\",\n");
         }
         jsonSchemaText.append("}");
         this.jsonSchema.setText(jsonSchemaText.toString());
