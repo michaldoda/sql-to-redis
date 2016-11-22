@@ -20,7 +20,7 @@ How to use:
 * choose redis suffix (value should be unique if not then you will override previouse keys, you can choose column value - so your SQL PK can be saved, default value is autoincrement id from loop)
 * in JSON schema, all $$words$$ are variables, they will be replaced on the fly with row values
 
-![picture](sql2redis/src/sql2redis_img.jpg)
+![picture](src/sql2redis/sql2redis_img.jpg)
 
 Thanks for drivers/dbs to:
 -----------
