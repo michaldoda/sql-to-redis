@@ -185,6 +185,57 @@
     -fx-background-color: transparent,rgb(96,96,96),rgb(96,96,96);
 }
 
-#tokenList {
 
+.table-view {
+    -fx-background-color: #3C3F41;
+    -fx-text-fill: #e7e7e7 ;
+}
+.table-cell {
+    -fx-text-fill: #e7e7e7 ;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: #414547;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background: -fx-accent;
+    -fx-text-fill: -fx-selection-bar-text;
+}
+
+/* Selected row when table not focused */
+.table-row-cell:filled:focused:selected {
+    -fx-background-color: #414547;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background: -fx-accent;
+    -fx-text-fill: -fx-selection-bar-text;
+}
+
+.table-view:row-selection .table-row-cell:filled:hover {
+    -fx-background-color: #414547;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-text-fill: -fx-text-inner-color;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected:hover {
+    -fx-background: -fx-accent;
+    -fx-background-color: #414547;
+    -fx-background-insets: 0, 1, 2;
+    -fx-text-fill: -fx-selection-bar-text;
+}
+
+.table-view:row-selection .table-row-cell:filled:focused:hover {
+    -fx-background-color: #414547;
+    -fx-background-insets: 0, 0 0 1 0, 1 1 2 1, 2 2 3 2, 3 3 4 3;
+    -fx-text-fill: -fx-text-inner-color;
+}
+
+.table-row-cell {
+    -fx-background-color: #2B2B2B;
+}
+.table-row-cell:selected {
+    -fx-background-color: #414547;
+}
+.table-row-cell:even .table-cell {
+    -fx-fill: #414547;
+    -fx-background-color: #3b3b3b;
+    -fx-text-fill: #BBBBBB ;
 }

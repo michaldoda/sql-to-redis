@@ -7,22 +7,12 @@ import redis.clients.jedis.Jedis;
 import java.sql.*;
 
 public class ImportTask extends Task<Integer> {
+    private final String sqlUrl, sqlUser, sqlPassword, redisHost, redisPort, redisKeySuffixSchema, redisKeyBodySchema, tableToImport, jsonSchema;
+    private final Boolean isAutoIncrementSuffix;
 
-    private final String sqlUrl;
 
-    private final String sqlUser;
 
-    private final String sqlPassword;
-
-    private final String redisHost;
-
-    private final int redisPort;
-
-    private final String jsonSchema;
-
-    private final String tableToImport;
-
-    public ImportTask(String sqlUrl, String sqlUser, String sqlPassword, String redisHost, int redisPort, String tableToImport, String jsonSchema) {
+    public ImportTask(String sqlUrl, String sqlUser, String sqlPassword, String redisHost, String redisPort, String tableToImport, String jsonSchema, Boolean isAutoIncrementSuffix, String redisKeySuffixSchema, String redisKeyBodySchema) {
         this.sqlUrl = sqlUrl;
         this.sqlUser = sqlUser;
         this.sqlPassword = sqlPassword;
@@ -30,6 +20,9 @@ public class ImportTask extends Task<Integer> {
         this.redisPort = redisPort;
         this.jsonSchema = jsonSchema;
         this.tableToImport = tableToImport;
+        this.isAutoIncrementSuffix = isAutoIncrementSuffix;
+        this.redisKeySuffixSchema = redisKeySuffixSchema;
+        this.redisKeyBodySchema = redisKeyBodySchema;
         System.out.println("Task, constructor");
     }
 
@@ -38,7 +31,7 @@ public class ImportTask extends Task<Integer> {
         try {
             System.out.println("Task, call method");
             Connection connection = DriverManager.getConnection(this.sqlUrl, this.sqlUser, this.sqlPassword);
-            Jedis jedis = new Jedis(this.redisHost, this.redisPort);
+            Jedis jedis = new Jedis(this.redisHost, Integer.parseInt(this.redisPort));
             String sql = "SELECT * FROM $tableName".replace("$tableName", this.tableToImport);
             Statement stmt = connection.createStatement();
             connection.setAutoCommit(false);
@@ -53,14 +46,20 @@ public class ImportTask extends Task<Integer> {
                 counter++;
                 for (int i = 1; i <= columnCount; i++ ) {
                     String name = rsmd.getColumnName(i);
-                    if (rs.getString(name) != null) {
-                        jsonRow = jsonRow.replace("$"+name, rs.getString(name));
+                    if (rs.getString(name) == null) {
+                        jsonRow = jsonRow.replace("$$"+name+"$$", "");
                     } else {
-                        jsonRow = jsonRow.replace("$"+name, "");
+                        jsonRow = jsonRow.replace("$$"+name+"$$", rs.getString(name).replace("\"", "'"));
                     }
                 }
-                System.out.println(jsonRow);
-                jedis.set(""+counter+"", jsonRow);
+                String out = jsonRow.replaceAll("\\s+","").replace("\n", "").replace("\r", "").replace("\\/", "/").trim();
+                out = out.replaceAll("\\\\/", "/").replace("\\", "").replaceAll ("\\\\", "").replace('\\','/');
+                if (this.isAutoIncrementSuffix) {
+                    jedis.set(this.redisKeyBodySchema+"_"+counter+"_", out);
+                } else {
+                    jedis.set(this.redisKeyBodySchema+"_"+rs.getString(this.redisKeySuffixSchema), out);
+                }
+
             }
             connection.close();
             jedis.close();

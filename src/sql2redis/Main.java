@@ -11,7 +11,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sql2redis.fxml"));
-        primaryStage.setTitle("SQL2Redis - import data from SQL to Redis");
+        primaryStage.setTitle("SQL2Redis - import data from SQL to Redis as JSON");
         primaryStage.setScene(new Scene(root, 1024, 754));
         primaryStage.setResizable(false);
         primaryStage.show();

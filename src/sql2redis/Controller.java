@@ -114,6 +114,7 @@ public class Controller {
         this.tokenList.setVisible(true);
         this.setTokenlist();
         this.prepareJsonSchema();
+        this.log("info", "Rows count: " + this.selectedTableFetchSize);
         this.selectedTableColumns.add("Auto-increment id");
         this.redisSuffix.setItems(FXCollections.observableArrayList(this.selectedTableColumns));
         this.redisSuffix.setValue("Auto-increment id");
@@ -176,10 +177,6 @@ public class Controller {
         }
     }
 
-    final public boolean test() {
-        return true;
-    }
-
     final public void getThreadsSize() {
         for (int i = 0, j = this.backgroundThreads.size(); i < j; i++) {
             Thread tmpThread = this.backgroundThreads.get(i);
@@ -188,8 +185,8 @@ public class Controller {
                     item.setStatus(tmpThread.getState().toString());
                 }
             });
-            ObservableList t = this.backgroundThreadsTable.getItems();
-            FXCollections.copy(this.backgroundThreadsTable.getItems(), t);
+            ObservableList tableSource = this.backgroundThreadsTable.getItems();
+            FXCollections.copy(this.backgroundThreadsTable.getItems(), tableSource);
         }
     }
 
@@ -198,10 +195,19 @@ public class Controller {
         String sqlUser = this.sqlUsername.getText();
         String sqlPassword = this.sqlPassword.getText();
         String redisHost = this.redisHostname.getText();
-        int redisPort = Integer.parseInt(this.redisPort.getText());
+        String redisPort = this.redisPort.getText();
         String tableToImport = this.selectedTable;
         String jsonSchema = this.jsonSchema.getText();
-        ImportTask importTask = new ImportTask(sqlUrl, sqlUser, sqlPassword, redisHost, redisPort, tableToImport, jsonSchema);
+        Boolean isAutoIncrementSuffix;
+        String redisKeyBodySchema = this.redisKeyName.getText();
+        String redisKeySuffixSchema = this.redisSuffix.getSelectionModel().getSelectedItem().toString();
+        if (redisKeySuffixSchema.equals("Auto-increment id")) {
+            isAutoIncrementSuffix = true;
+        } else {
+            isAutoIncrementSuffix = false;
+        }
+
+        ImportTask importTask = new ImportTask(sqlUrl, sqlUser, sqlPassword, redisHost, redisPort, tableToImport, jsonSchema, isAutoIncrementSuffix, redisKeySuffixSchema, redisKeyBodySchema);
         Thread th = new Thread(importTask);
         th.setName("Task" + this.importCounter);
         this.importCounter++;
@@ -213,18 +219,6 @@ public class Controller {
         ImportTaskModel newTask = new ImportTaskModel(th.getName(), tableToImport, ImportTaskModel.translateState(th.getState().toString()));
         final ObservableList<ImportTaskModel> row = FXCollections.observableArrayList(newTask);
         this.backgroundThreadsTable.getItems().addAll(row);
-//
-//        importTask.setOnSucceeded(new EventHandler() {
-//            @Override
-//            public void handle(Event t) {
-//                if (importTask.isDone()){
-//                    test();
-//                    System.out.println("ok");
-//                } else {
-//                    System.out.println("nope");
-//                }
-//            }
-//        });
     }
 
     private void setTokenlist() {
@@ -236,7 +230,11 @@ public class Controller {
         jsonSchemaText.append("{\n");
         for (int i = 0; i < this.selectedTableColumns.size(); i++) {
             String tmpName = this.selectedTableColumns.get(i);
-            jsonSchemaText.append("    \""+tmpName+"\": " + "$"+tmpName+"\",\n");
+            if (i == this.selectedTableColumns.size() - 1) {
+                jsonSchemaText.append("    \""+tmpName+"\": " + "\"$$"+tmpName+"$$\"\n");
+            } else {
+                jsonSchemaText.append("    \""+tmpName+"\": " + "\"$$"+tmpName+"$$\",\n");
+            }
         }
         jsonSchemaText.append("}");
         this.jsonSchema.setText(jsonSchemaText.toString());
