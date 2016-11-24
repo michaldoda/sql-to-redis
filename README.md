@@ -3,6 +3,11 @@
 
 Very simple Java app. My first usage of JavaFx. Created for my tests and development reasons. Sql2redis can be used to export and transform data from sql database tables to redis (storing with JSON format).
 
+How to run:
+-----------
+* git clone repo OR download jar file from out/artifacts/sql2redis_jar/sql2redis.jar
+* java -jar sql2redis.jar
+
 Details:
 -----------
 * all queries run using Connection/ResultSets classes
