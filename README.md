@@ -19,6 +19,7 @@ How to run:
   ```
   java -jar sql2redis.jar
   ```
+
 DB support:
 -----------
 | SQL databases | Support |
