@@ -7,7 +7,7 @@ How to run:
 -----------
 
 1. (optional) Get latest JRE from Oracle website (currently the newest is JRE 1.8.0_112)
-2. Get JAR file [download](https://github.com/mojeprojekty/sql2redis/raw/master/out/artifacts/sql2redis_jar/sql2redis.jar)
+2. Get sql2redis JAR file [download](https://github.com/mojeprojekty/sql2redis/raw/master/out/artifacts/sql2redis_jar/sql2redis.jar)
 3. Just check Java version (should be "1.8.0_112"):
   ```
   user@localhost:~$ java -version 
