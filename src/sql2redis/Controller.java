@@ -91,8 +91,8 @@ public class Controller {
     private void getTableList() {
         try {
             DatabaseMetaData dmd = this.connection.getMetaData();
-            String[] systemName = {"TABLE", "VIEW"};
-            ResultSet rs = dmd.getTables("%", "%", "%", systemName);
+            String[] systemName = {"TABLE", "VIEW", "VIEWS"};
+            ResultSet rs = dmd.getTables(null, null, "%", systemName);
             ArrayList tmpTables = new ArrayList();
             while (rs.next()) {
                 tmpTables.add(rs.getString(3));
