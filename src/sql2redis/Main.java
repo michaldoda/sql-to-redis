@@ -1,3 +1,8 @@
+/*
+SQL to Redis (sql2redis)
+Created for my tests and development reasons. Sql2redis can be used to export and transform data 
+from sql database to redis. Redis keys are stored as JSON.
+*/
 package sql2redis;
 
 import javafx.application.Application;
