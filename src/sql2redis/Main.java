@@ -11,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.sql.DriverManager;
+
 public class Main extends Application {
 
     @Override
@@ -23,6 +25,11 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        try {
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+        } catch (Exception e) {
+
+        }
         launch(args);
     }
 }
