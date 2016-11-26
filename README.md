@@ -9,12 +9,12 @@ How to run:
 * (optional) Get latest JRE from Oracle website (currently the newest is JRE 1.8.0_112)
 * Get JAR file [download](https://github.com/mojeprojekty/sql2redis/raw/master/out/artifacts/sql2redis_jar/sql2redis.jar)
 * Just check Java version:
-  ```
-  user@localhost:~$ java -version
-  java version "1.8.0_112"
-  Java(TM) SE Runtime Environment (build 1.8.0_112-b15)
-  Java HotSpot(TM) 64-Bit Server VM (build 25.112-b15, mixed mode)
-  ```
+```
+user@localhost:~$ java -version
+java version "1.8.0_112"
+Java(TM) SE Runtime Environment (build 1.8.0_112-b15)
+Java HotSpot(TM) 64-Bit Server VM (build 25.112-b15, mixed mode)
+```
 * Go to downloaded JAR file and run command:
   ```
   java -jar sql2redis.jar
