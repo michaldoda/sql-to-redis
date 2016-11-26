@@ -10,10 +10,7 @@ How to run:
 2. Get JAR file [download](https://github.com/mojeprojekty/sql2redis/raw/master/out/artifacts/sql2redis_jar/sql2redis.jar)
 3. Just check Java version:
   ```
-  user@localhost:~$ java -version
-  java version "1.8.0_112"
-  Java(TM) SE Runtime Environment (build 1.8.0_112-b15)
-  Java HotSpot(TM) 64-Bit Server VM (build 25.112-b15, mixed mode)
+  user@localhost:~$ java -version //java version "1.8.0_112"
   ```
 4. Go to downloaded JAR file and run command:
   ```
