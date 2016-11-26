@@ -55,7 +55,7 @@ public class ImportTask extends Task<Integer> {
                 String out = jsonRow.replaceAll("\\s+","").replace("\n", "").replace("\r", "").replace("\\/", "/").trim();
                 out = out.replaceAll("\\\\/", "/").replace("\\", "").replaceAll ("\\\\", "").replace('\\','/');
                 if (this.isAutoIncrementSuffix) {
-                    jedis.set(this.redisKeyBodySchema+"_"+counter+"_", out);
+                    jedis.set(this.redisKeyBodySchema+"_"+counter, out);
                 } else {
                     jedis.set(this.redisKeyBodySchema+"_"+rs.getString(this.redisKeySuffixSchema), out);
                 }
