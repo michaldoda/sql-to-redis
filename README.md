@@ -17,6 +17,7 @@ How to run:
   java -jar sql2redis.jar
   ```
 5. JDBC for:
+
   5.1. MYSQL:       jdbc:mysql://HOST:PORT/DBNAME?useSSL=false
   5.2. PostgreSQL:  jdbc:postgresql://HOST:PORT/DBNAME
 
