@@ -1,4 +1,4 @@
-# SQL to Redis (sql2redis) #
+# sql-to-redis #
 
 
 Very simple Java app. My first usage of JavaFx. Created for my tests and development reasons. Sql2redis can be used to export and transform data from sql database tables to redis (storing with JSON format).
@@ -7,20 +7,20 @@ How to run:
 -----------
 
 1. (optional) Get latest JRE from Oracle website (currently the newest is JRE 1.8.0_112)
-2. Get sql2redis JAR file [download](https://github.com/mojeprojekty/sql2redis/raw/master/out/artifacts/sql2redis_jar/sql2redis.jar)
-3. Just check Java version (should be "1.8.0_112"):
-  ```
-  user@localhost:~$ java -version 
-  ```
+2. Get latest sql-to-redis JAR file from [download](https://github.com/mojeprojekty/sql-to-redis/releases)
+3. Just check Java version (should be "1.8.0_112" or greater):
+```
+user@localhost:~$ java -version 
+```
 4. Go to downloaded JAR file and run command:
-  ```
-  java -jar sql2redis.jar
-  ```
+```
+java -jar sql2redis.jar
+```
 5. JDBC for:
 
-  5.1. MYSQL:       jdbc:mysql://HOST:PORT/DBNAME?useSSL=false
+* MYSQL:       jdbc:mysql://HOST:PORT/DBNAME
   
-  5.2. PostgreSQL:  jdbc:postgresql://HOST:PORT/DBNAME
+* 5.2. PostgreSQL:  jdbc:postgresql://HOST:PORT/DBNAME
 
 DB support:
 -----------
