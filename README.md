@@ -7,20 +7,24 @@ How to run:
 -----------
 
 1. (optional) Get latest JRE from Oracle website (currently the newest is JRE 1.8.0_112)
-2. Get latest sql-to-redis JAR file from [download](https://github.com/mojeprojekty/sql-to-redis/releases)
-3. Just check Java version (should be "1.8.0_112" or greater):
+2. (optional) If you are using OpenJDK you probably have to install javafx packages (they are not included by default in OpenJDK), for Debian/Ubuntu this should help:
+```
+aptitude install openjfx
+```  
+3. Get latest sql-to-redis JAR file from [releases](https://github.com/mojeprojekty/sql-to-redis/releases)
+4. Just check Java version (should be "1.8.0_112" or greater):
 ```
 user@localhost:~$ java -version 
 ```
-4. Go to downloaded JAR file and run command:
+5. Go to downloaded JAR file and run command:
 ```
-java -jar sql2redis.jar
+java -jar sql-to-redis.jar
 ```
-5. JDBC for:
+6. JDBC for:
 
 * MYSQL:       jdbc:mysql://HOST:PORT/DBNAME
   
-* 5.2. PostgreSQL:  jdbc:postgresql://HOST:PORT/DBNAME
+* PostgreSQL:  jdbc:postgresql://HOST:PORT/DBNAME
 
 DB support:
 -----------
