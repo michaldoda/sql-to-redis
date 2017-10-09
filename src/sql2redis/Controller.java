@@ -23,7 +23,7 @@ public class Controller {
     public PasswordField sqlPassword;
 
     @FXML
-    public TextField sqlConnectionString, sqlUsername, redisHostname, redisPort, redisKeyName;
+    public TextField sqlConnectionString, sqlUsername, redisHostname, redisPort, redisKeyName, redisAuth;
 
     @FXML
     public ListView tableList;
@@ -196,6 +196,7 @@ public class Controller {
         String sqlPassword = this.sqlPassword.getText();
         String redisHost = this.redisHostname.getText();
         String redisPort = this.redisPort.getText();
+        String redisAuth = this.redisAuth.getText();
         String tableToImport = this.selectedTable;
         String jsonSchema = this.jsonSchema.getText();
         Boolean isAutoIncrementSuffix;
@@ -207,7 +208,7 @@ public class Controller {
             isAutoIncrementSuffix = false;
         }
 
-        ImportTask importTask = new ImportTask(sqlUrl, sqlUser, sqlPassword, redisHost, redisPort, tableToImport, jsonSchema, isAutoIncrementSuffix, redisKeySuffixSchema, redisKeyBodySchema);
+        ImportTask importTask = new ImportTask(sqlUrl, sqlUser, sqlPassword, redisHost, redisPort, tableToImport, jsonSchema, isAutoIncrementSuffix, redisKeySuffixSchema, redisKeyBodySchema, redisAuth);
         Thread th = new Thread(importTask);
         th.setName("Task" + this.importCounter);
         this.importCounter++;

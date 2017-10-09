@@ -1,6 +1,6 @@
 /*
-SQL to Redis (sql2redis)
-Created for my tests and development reasons. Sql2redis can be used to export and transform data 
+SQL to Redis (sql-to-redis)
+Created for my tests and development reasons. Sql-to-redis can be used to export and transform data
 from sql database to redis. Redis keys are stored as JSON.
 */
 package sql2redis;
@@ -26,7 +26,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         try {
-            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
         } catch (Exception e) {
 
         }

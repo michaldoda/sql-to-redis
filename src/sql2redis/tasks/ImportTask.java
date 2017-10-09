@@ -7,17 +7,18 @@ import redis.clients.jedis.Jedis;
 import java.sql.*;
 
 public class ImportTask extends Task<Integer> {
-    private final String sqlUrl, sqlUser, sqlPassword, redisHost, redisPort, redisKeySuffixSchema, redisKeyBodySchema, tableToImport, jsonSchema;
+    private final String sqlUrl, sqlUser, sqlPassword, redisHost, redisPort, redisKeySuffixSchema, redisKeyBodySchema, tableToImport, jsonSchema, redisAuth;
     private final Boolean isAutoIncrementSuffix;
 
 
 
-    public ImportTask(String sqlUrl, String sqlUser, String sqlPassword, String redisHost, String redisPort, String tableToImport, String jsonSchema, Boolean isAutoIncrementSuffix, String redisKeySuffixSchema, String redisKeyBodySchema) {
+    public ImportTask(String sqlUrl, String sqlUser, String sqlPassword, String redisHost, String redisPort, String tableToImport, String jsonSchema, Boolean isAutoIncrementSuffix, String redisKeySuffixSchema, String redisKeyBodySchema, String redisAuth) {
         this.sqlUrl = sqlUrl;
         this.sqlUser = sqlUser;
         this.sqlPassword = sqlPassword;
         this.redisHost = redisHost;
         this.redisPort = redisPort;
+        this.redisAuth = redisAuth;
         this.jsonSchema = jsonSchema;
         this.tableToImport = tableToImport;
         this.isAutoIncrementSuffix = isAutoIncrementSuffix;
@@ -32,6 +33,9 @@ public class ImportTask extends Task<Integer> {
             System.out.println("Task, call method");
             Connection connection = DriverManager.getConnection(this.sqlUrl, this.sqlUser, this.sqlPassword);
             Jedis jedis = new Jedis(this.redisHost, Integer.parseInt(this.redisPort));
+            if (!this.redisAuth.equals("")) {
+                jedis.auth(this.redisAuth);
+            }
             String sql = "SELECT * FROM $tableName".replace("$tableName", this.tableToImport);
             Statement stmt = connection.createStatement();
             connection.setAutoCommit(false);

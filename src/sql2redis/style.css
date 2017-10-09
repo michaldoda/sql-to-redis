@@ -52,6 +52,11 @@
     -fx-font-weight: bold;
 }
 
+#redisAuth {
+    -fx-text-fill: #EBEBEB;
+    -fx-font-weight: bold;
+}
+
 #redisPort {
     -fx-text-fill: #EBEBEB;
     -fx-font-weight: bold;

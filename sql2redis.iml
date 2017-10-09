@@ -8,9 +8,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="postgresql-9.4.1211" level="project" />
-    <orderEntry type="library" name="mysql-connector-java-5.0.8-bin" level="project" />
-    <orderEntry type="library" name="jedis-2.4.2" level="project" />
-    <orderEntry type="library" name="com.google.code.gson:gson:2.8.0" level="project" />
-    <orderEntry type="library" name="org.json:json:20151123" level="project" />
+    <orderEntry type="library" name="mysql-connector-java-5.1.44-bin" level="project" />
+    <orderEntry type="library" name="jedis-2.9.0" level="project" />
   </component>
 </module>
