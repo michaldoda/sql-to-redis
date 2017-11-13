@@ -7,7 +7,7 @@ How to run:
 -----------
 
 1. (optional) Get latest JRE from Oracle website (currently the newest is JRE 1.8.0_112)
-2. (optional) If you are using OpenJDK you probably have to install javafx packages (they are not included by default in OpenJDK), for Debian/Ubuntu this should help:
+2. (optional) If you are using OpenJDK (instead of OracleJDK) you probably have to install javafx packages (they are not included by default in OpenJDK), for Debian/Ubuntu this should help:
 ```
 aptitude install openjfx
 ```  
