@@ -3,6 +3,9 @@
 
 Very simple Java app. My first usage of JavaFx. Created for my tests and development reasons. Sql2redis can be used to export and transform data from sql database tables to redis (storing with JSON format).
 
+![picture](src/sql2redis/sql2redis_img.jpg)
+
+
 How to run:
 -----------
 
@@ -52,7 +55,6 @@ How to use:
 * choose redis suffix (value should be unique if not then you will override previouse keys, you can choose column value - so your SQL PK can be saved, default value is autoincrement id from loop)
 * in JSON schema, all $$words$$ are variables, they will be replaced on the fly with row values
 
-![picture](src/sql2redis/sql2redis_img.jpg)
 
 Thanks for drivers/dbs to:
 -----------
