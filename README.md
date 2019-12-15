@@ -1,7 +1,7 @@
 # sql-to-redis #
 
 
-Very simple Java app. My first usage of JavaFx. Created for my tests and development reasons. Sql2redis can be used to export and transform data from sql database tables to redis (storing with JSON format).
+Very simple Java app. My first usage of JavaFx. Created for my tests and development reasons. Sql-to-redis can be used to export and transform data from SQL tables to Redis key-value.
 
 ![picture](src/sql2redis/sql2redis_img.jpg)
 
@@ -9,7 +9,7 @@ Very simple Java app. My first usage of JavaFx. Created for my tests and develop
 How to run:
 -----------
 
-1. (optional) Get latest JRE from Oracle website (currently the newest is JRE 1.8.0_112)
+1. (optional) Get the latest JRE from Oracle website.
 2. (optional) If you are using OpenJDK (instead of OracleJDK) you probably have to install javafx packages (they are not included by default in OpenJDK), for Debian/Ubuntu this should help:
 ```
 aptitude install openjfx
